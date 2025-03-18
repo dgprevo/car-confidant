@@ -3,9 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Confidant</title>
+    <title>Vehicle Information Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        .button {
+            display: block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px auto;
+            text-decoration: none;
+            font-size: 16px;
+            width: 80%;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Car Confidant is Live!</h1>
+    <div class="container">
+        <h1 id="title">Vehicle Data Not Found</h1>
+        <p id="description">We couldn't find details for the requested model.</p>
+        <a id="specs" class="button" href="#">🔧 View Key Specs & Features</a>
+        <a id="walkaround" class="button" href="#">🤖 Watch Walkaround Video</a>
+        <a id="compare" class="button" href="#">⚖ Compare with Other Models</a>
+        <a id="msrp" class="button" href="#">💲 Check MSRP & Incentives</a>
+        <a id="inventory" class="button" href="#">📍 View Local Inventory</a>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const model = params.get("model");
+        const year = params.get("year") || new Date().getFullYear();
+
+        if (model) {
+            document.getElementById("title").textContent = `${year} ${model}`;
+            document.getElementById("description").textContent = `Here's everything you need to know about the ${year} ${model}.`;
+            document.getElementById("specs").href = `https://www.edmunds.com/${model.toLowerCase()}/${year}/features-specs/`;
+            document.getElementById("walkaround").href = `https://www.youtube.com/results?search_query=${year}+${model}+walkaround`;
+            document.getElementById("compare").href = `https://www.google.com/search?q=${year}+${model}+vs+other+models`;
+            document.getElementById("msrp").href = `https://www.kbb.com/${model.toLowerCase()}/${year}/pricing/`;
+            document.getElementById("inventory").href = `https://www.autotrader.com/cars-for-sale/${year}-${model.replace(' ', '-')}`;
+        }
+    </script>
 </body>
 </html>
